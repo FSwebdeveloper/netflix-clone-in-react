@@ -29,7 +29,7 @@ function Sign() {
             "Content-Type": "application/json"
            } 
         })
-         .then((res)=>{return res.json()})
+        //  .then((res)=>{return res.json()})
         .then((data)=> {console.log(data)});
     }
 
