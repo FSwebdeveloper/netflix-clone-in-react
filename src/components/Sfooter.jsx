@@ -26,11 +26,11 @@ function Sign() {
            method:"POST",
            body:JSON.stringify(change),
            headers: {
-            "Content-Type": "application/json"
-           } 
+            "Content-Type": "application/json; charset=UTF-8",
+           },
         })
-         .then((response)=>{return response.json()})
-        .then((data)=> {console.log(data)});
+        .then(response => response.json())
+        .then(json => console.log(json));
     }
 
     // const handleSubmit = async(e)=> {
