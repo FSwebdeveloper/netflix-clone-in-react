@@ -7,30 +7,30 @@ import abouts from "./abouts";
 function Sign() {
 
      const [submit, setSubmit] = useState(true);
-     const [form, setForm] = useState({});
+     const [change, setChange] = useState("");
 
 
 
     function handleChange(event) {
      
-     setForm({
-        ...form,
+     setChange({
+        ...change,
         [event.target.name] : event.target.value
      })
     //  console.log(change);
     }
 
-    function handleSubmit (event) {
+    function handleSubmit(event) {
         event.preventDefault();
-          fetch("/login", {
+         fetch("/login", {
            method:"POST",
-           body:JSON.stringify(form),
+           body:JSON.stringify(change),
            headers: {
             "Content-Type": "application/json"
            } 
         })
-         .then((response) => response.json())
-         .then((data) => console.log(data));
+         .then((res)=>{return res.json()})
+        .then((data)=> {console.log(data)});
     }
 
     // const handleSubmit = async(e)=> {
@@ -84,7 +84,7 @@ function Sign() {
               <input className="sign-input-box" type="text" name="password" onChange={handleChange} placeholder=""/>
               <label className="sign-form-label">Password</label>
               </div>
-              <input className="form-submit" type="submit" value={submit === true? "Sign In" : "Submited"}
+              <input className="form-submit" type="submit" value={submit === true ? "Sign In " : "Submited"}
               onClick={()=> setSubmit(!submit)}
               />
             </div>
