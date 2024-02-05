@@ -20,34 +20,33 @@ function Sign() {
     //  console.log(change);
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-         fetch("/login",{
-           method:"POST",
-           body:JSON.stringify(change),
-           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-            "Accept": "application/json"
-           }
-        })
-        .then(response => response.json())
-        .then(json => console.log(json));
-    };
+    // function handleSubmit(event) {
+    //     event.preventDefault();
+    //      fetch("/login",{
+    //        method:"POST",
+    //        body:JSON.stringify(change),
+    //        headers: {
+    //         "Content-Type": "application/json; charset=UTF-8",
+    //         "Accept": "application/json"
+    //        }
+    //     })
+    //     .then(response => response.json())
+    //     .then(json => console.log(json));
+    // };
 
-    // const handleSubmit = async(e)=> {
-    //     e.preventDefault();
-    //     const response = await fetch("/login",{
-    //     method:"POST",
-    //     body:JSON.stringify(change),
-    //     headers:{
-    //         "Content-Type": "application/json",
-    //     },
-    //     });
-    //     // .then((res)=>{return res.json()})
-    //     // .then((data)=> {console.log(data)});
-    //     const data = await response.json();
-    //     console.log(data);
-    //   };
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        const response = await fetch("/login",{
+        method:"POST",
+        body:JSON.stringify(change),
+        headers:{
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+        })
+        const data = await response.json();
+        console.log(data);
+      };
 
      
 
