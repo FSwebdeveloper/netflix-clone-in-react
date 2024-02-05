@@ -22,16 +22,17 @@ function Sign() {
 
     function handleSubmit(event) {
         event.preventDefault();
-         fetch("/login", {
+         fetch("/login",{
            method:"POST",
            body:JSON.stringify(change),
            headers: {
             "Content-Type": "application/json; charset=UTF-8",
-           },
+            "Accept": "application/json"
+           }
         })
         .then(response => response.json())
         .then(json => console.log(json));
-    }
+    };
 
     // const handleSubmit = async(e)=> {
     //     e.preventDefault();
