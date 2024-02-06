@@ -25,7 +25,7 @@ function Sign() {
     function handleSubmit(event) {
         event.preventDefault();
         setError(Validation(change));
-         fetch("https://node-server-0gca.onrender.com/login",{
+         fetch("/login",{
            method:"POST",
            headers: {
             "Content-Type": "application/json; charset=UTF-8",
