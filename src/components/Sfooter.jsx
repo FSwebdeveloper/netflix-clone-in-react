@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {Link} from "react-router-dom";
 import Footer from "./Footer";
 import abouts from "./abouts";
+import Validation from "./Validation";
 
 
 function Sign() {
 
      const [submit, setSubmit] = useState(true);
      const [change, setChange] = useState("");
+     const [errors, setError] = useState({});
 
 
 
@@ -36,6 +38,7 @@ function Sign() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setError(Validation(change));
         const response = await fetch("/login",{
         method:"POST",
         body:JSON.stringify(change),
@@ -48,7 +51,10 @@ function Sign() {
         console.log(data);
       };
 
-     
+        
+        
+    
+    
 
     return (
         <div>
@@ -72,19 +78,22 @@ function Sign() {
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" name="email" onChange={handleChange} placeholder=""/>
+              <input className="sign-input-box" type="text" value={change.email} name="email" onChange={handleChange} placeholder=""/>
               <label className="sign-form-label">Email or phone number</label>
               </div>
+              {errors.email && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.email}</p> }
             </div>
+            
             <div className="form-section">
             <div className="form-bg-support">
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" name="password" onChange={handleChange} placeholder=""/>
+              <input className="sign-input-box" type="text" value={change.password} name="password" onChange={handleChange} placeholder=""/>
               <label className="sign-form-label">Password</label>
               </div>
-              <input className="form-submit" type="submit" value={submit === true ? "Sign In " : "Submited"}
+              {errors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.password}</p> }
+              <input className="form-submit" type="submit" value="Sign In"
               onClick={()=> setSubmit(!submit)}
               />
             </div>
