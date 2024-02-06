@@ -25,11 +25,10 @@ function Sign() {
     function handleSubmit(event) {
         event.preventDefault();
         setError(Validation(change));
-         fetch("/login",{
+         fetch("https://node-server-0gca.onrender.com/login",{
            method:"POST",
            headers: {
             "Content-Type": "application/json; charset=UTF-8",
-            "Accept": "application/json"
            },
            body:JSON.stringify(change)
         })
@@ -37,7 +36,7 @@ function Sign() {
         .then(res => {
             console.log(res)
         });
-    };
+    }
 
     // const handleSubmit = async(e) => {
     //     e.preventDefault();
