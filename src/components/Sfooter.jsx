@@ -22,23 +22,48 @@ function Sign() {
     //  console.log(change);
     }
 
+    // function handleSubmit(event) {
+    //     event.preventDefault();
+    //     setError(Validation(change));
+    //      fetch("/login",{
+    //        method:"POST",
+    //        headers: {
+    //         "Content-Type": "application/json; charset=UTF-8",
+    //        },
+    //        body:JSON.stringify(change)
+    //     })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //         console.log(res)
+    //     });
+    // }
+
     function handleSubmit(event) {
         event.preventDefault();
         setError(Validation(change));
-         fetch("/login",{
-           method:"POST",
-           headers: {
+        fetch("/login", {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json; charset=UTF-8",
-           },
-           body:JSON.stringify(change)
+          },
+          body: JSON.stringify(change),
         })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res)
-        });
-    }
-
-  
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log("Login successful:", data);
+            // Redirect or perform other actions based on the response
+          })
+          .catch((error) => {
+            console.error("Error during fetch or JSON parsing:", error);
+            // Display an error message to the user or perform other error handling
+          });
+      }
+      
 
     // const handleSubmit = async(e) => {
     //     e.preventDefault();
