@@ -38,6 +38,8 @@ function Sign() {
         });
     }
 
+  
+
     // const handleSubmit = async(e) => {
     //     e.preventDefault();
     //     setError(Validation(change));
@@ -54,10 +56,6 @@ function Sign() {
     //   };
 
         
-        
-    
-    
-
     return (
         <div>
             <div className="first-section sign-first-psudo">
