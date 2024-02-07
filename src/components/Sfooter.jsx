@@ -50,19 +50,31 @@ function Sign() {
         })
           .then((res) => {
             if (!res.ok) {
+              // If the response status is not okay, handle the error here
               throw new Error(`HTTP error! Status: ${res.status}`);
             }
-            return res.json();
+            return res.text(); // Get the raw response text
+          })
+          .then((text) => {
+            // Check if the response is not empty before parsing
+            if (text.trim() !== '') {
+              return JSON.parse(text);
+            } else {
+              // Handle empty response
+              console.warn('Received empty response');
+              return null;
+            }
           })
           .then((data) => {
-            console.log("Login successful:", data);
-            // Redirect or perform other actions based on the response
+            console.log("Response data:", data);
+            // Process the response data as needed
           })
           .catch((error) => {
-            console.error("Error during fetch or JSON parsing:", error);
-            // Display an error message to the user or perform other error handling
+            console.error("Error during fetch or response processing:", error);
+            // Handle the error, show an error message, etc.
           });
       }
+      
       
 
     // const handleSubmit = async(e) => {
