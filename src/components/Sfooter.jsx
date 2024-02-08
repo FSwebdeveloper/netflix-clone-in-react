@@ -48,14 +48,14 @@ function Sign() {
           },
           body: JSON.stringify(change),
         })
-          .then((res) => {
+          Promise.then((res) => {
             if (!res.ok) {
               // If the response status is not okay, handle the error here
               throw new Error(`HTTP error! Status: ${res.status}`);
             }
             return res.text(); // Get the raw response text
           })
-          .then((text) => {
+          Promise.then((text) => {
             // Check if the response is not empty before parsing
             if (text.trim() !== '') {
               return JSON.parse(text);
@@ -65,7 +65,7 @@ function Sign() {
               return null;
             }
           })
-          .then((data) => {
+          Promise.then((data) => {
             console.log("Response data:", data);
             // Process the response data as needed
           })
