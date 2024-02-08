@@ -38,41 +38,42 @@ function Sign() {
     //     });
     // }
 
-   
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setError(Validation(change));
-    // Assuming your backend login route is '/api/login'
-    const loginUrl = '/login';
-
-    try {
-      // Make a POST request using fetch
-      const response = await fetch(loginUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(change),
-      });
-
-      // Check if the request was successful (status code 2xx)
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful:', data);
-        // Handle successful login, such as updating state or redirecting
-      } else {
-        // Handle errors for non-successful responses
-        const errorData = await response.json();
-        console.error('Login failed:', errorData);
-        // Handle error, show a message, or redirect to an error page
+   function handleSubmit(event) {
+        event.preventDefault();
+        setError(Validation(change));
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify(change),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              // If the response status is not okay, handle the error here
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.text(); // Get the raw response text
+          })
+          .then((text) => {
+            // Check if the response is not empty before parsing
+            if (text.trim() !== '') {
+              return JSON.parse(text);
+            } else {
+              // Handle empty response
+              console.warn('Received empty response');
+              return null;
+            }
+          })
+          .then((data) => {
+            console.log("Response data:", data);
+            // Process the response data as needed
+          })
+          .catch((error) => {
+            console.error("Error during fetch or response processing:", error);
+            // Handle the error, show an error message, etc.
+          });
       }
-    } catch (error) {
-      console.error('Error during login:', error);
-      // Handle network errors or other exceptions
-    }
-  };
-
-  
       
       
 
@@ -108,7 +109,7 @@ function Sign() {
           <div className="bg">
             <div className="sign-bg-psudo">
              <h1 className="sign-heading">Sign In</h1>
-             <form onSubmit={onSubmit} className="form-max-width">
+             <form onSubmit={handleSubmit} className="form-max-width">
              <div className="form-section">
              <div className="form-bg-support">
               <div className="form-top">
