@@ -115,7 +115,7 @@ function Sign() {
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" value={change.email} name="email" onChange={handleChange} placeholder=""/>
+              <input className="sign-input-box" type="text" value={change.email} name="email" onChange={handleChange} placeholder=""></input>
               <label className="sign-form-label">Email or phone number</label>
               </div>
               {errors.email && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.email}</p> }
@@ -126,13 +126,13 @@ function Sign() {
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" value={change.password} name="password" onChange={handleChange} placeholder=""/>
+              <input className="sign-input-box" type="text" value={change.password} name="password" onChange={handleChange} placeholder=""></input>
               <label className="sign-form-label">Password</label>
               </div>
               {errors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.password}</p> }
               <input className="form-submit" type="submit" value="Sign In"
               onClick={()=> setSubmit(!submit)}
-              />
+              ></input>
             </div>
             </form>
             </div>
