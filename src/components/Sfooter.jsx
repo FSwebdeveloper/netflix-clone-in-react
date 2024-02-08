@@ -38,24 +38,24 @@ function Sign() {
     //     });
     // }
 
-  async function handleSubmit(event) {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         setError(Validation(change));
-      await fetch("/login", {
+        await fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify(change),
         })
-          Promise.then((res) => {
+          .then((res) => {
             if (!res.ok) {
               // If the response status is not okay, handle the error here
               throw new Error(`HTTP error! Status: ${res.status}`);
             }
             return res.text(); // Get the raw response text
           })
-          Promise.then((text) => {
+          .then((text) => {
             // Check if the response is not empty before parsing
             if (text.trim() !== '') {
               return JSON.parse(text);
@@ -65,7 +65,7 @@ function Sign() {
               return null;
             }
           })
-          Promise.then((data) => {
+          .then((data) => {
             console.log("Response data:", data);
             // Process the response data as needed
           })
