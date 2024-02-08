@@ -65,7 +65,7 @@ function Sign() {
               return null;
             }
           })
-          .then((data) => {
+          Promise.then((data) => {
             console.log("Response data:", data);
             // Process the response data as needed
           })
