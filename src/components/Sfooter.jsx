@@ -38,10 +38,10 @@ function Sign() {
     //     });
     // }
 
-    function handleSubmit(event) {
+  async function handleSubmit(event) {
         event.preventDefault();
         setError(Validation(change));
-        fetch("/login", {
+      await fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
