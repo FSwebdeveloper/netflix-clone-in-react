@@ -122,6 +122,11 @@
         flex-direction: column;
     }
 
+    .visible-toggle{
+        font-size: 1.5rem;
+    }
+    
+
      
     .webp-img{
         max-width:100%;
@@ -213,6 +218,10 @@
 @media (max-width:699px){
     .line-responsive{
         margin-top: 35px;
+    }
+
+    .visible-toggle{
+        font-size: 1.5rem;
     }
 
 }
