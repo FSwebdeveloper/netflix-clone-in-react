@@ -10,6 +10,7 @@ function Sign() {
      const [submit, setSubmit] = useState(true);
      const [change, setChange] = useState("");
      const [errors, setError] = useState("");
+     const [visible, setVisible ] = useState(true);
 
 
 
@@ -109,13 +110,14 @@ function Sign() {
           <div className="bg">
             <div className="sign-bg-psudo">
              <h1 className="sign-heading">Sign In</h1>
-             <form onSubmit={handleSubmit} className="form-max-width">
+            <form onSubmit={handleSubmit} className="form-max-width">
              <div className="form-section">
              <div className="form-bg-support">
               <div className="form-top">
 
               </div>
               <input className="sign-input-box" type="text" value={change.email} name="email" onChange={handleChange} placeholder=""></input>
+
               <label className="sign-form-label">Email or phone number</label>
               </div>
               {errors.email && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.email}</p> }
@@ -126,8 +128,13 @@ function Sign() {
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" value={change.password} name="password" onChange={handleChange} placeholder=""></input>
+              <div className="visible-div">
+              <input className="sign-input-box" type={visible === true ? "text" : "password"} value={change.password} name="password" onChange={handleChange} placeholder=""></input>
               <label className="sign-form-label">Password</label>
+              <div onClick={()=>setVisible(!visible)}>
+                {visible ? <span class="material-symbols-outlined visible-toggle">visibility </span>: <span class="material-symbols-outlined visible-toggle"> visibility_off</span>}
+              </div>
+              </div>
               </div>
               {errors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.password}</p> }
               <input className="form-submit" type="submit" value="Sign In"
