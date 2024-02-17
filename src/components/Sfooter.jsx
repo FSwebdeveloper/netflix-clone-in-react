@@ -10,7 +10,7 @@ function Sign() {
      const [submit, setSubmit] = useState(true);
      const [change, setChange] = useState("");
      const [errors, setError] = useState("");
-     const [visible, setVisible ] = useState(true);
+     const [visible, setVisible ] = useState(false);
 
 
 
@@ -18,7 +18,8 @@ function Sign() {
      
      setChange({
         ...change,
-        [event.target.name] : event.target.value
+        [event.target.name] : event.target.value,
+
      })
     //  console.log(change);
     }
@@ -131,9 +132,10 @@ function Sign() {
               <div className="visible-div">
               <input className="sign-input-box" type={visible === true ? "text" : "password"} value={change.password} name="password" onChange={handleChange} placeholder=""></input>
               <label className="sign-form-label">Password</label>
-              <div onClick={()=>setVisible(!visible)}>
-                {visible ? <span class="material-symbols-outlined visible-toggle">visibility </span>: <span class="material-symbols-outlined visible-toggle"> visibility_off</span>}
-              </div>
+              
+                {change.password && <div onClick={()=>setVisible(!visible)}>
+                {visible ? <span class="material-symbols-outlined visible-toggle">visibility </span>: <span class="material-symbols-outlined visible-toggle"> visibility_off</span>} 
+              </div>}
               </div>
               </div>
               {errors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.password}</p> }
