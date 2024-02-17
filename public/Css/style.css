@@ -406,6 +406,15 @@ body{
     
 }
 
+.visible-div{
+    display: flex;
+    width:315px;
+}
+
+.visible-toggle{
+    font-size: 1.5rem;
+}
+
 .form-section{
     display: flex;
     align-items: center;
@@ -413,6 +422,7 @@ body{
     margin-bottom: 30px;
     
 }
+
 
 .form-max-width{
     width: 350px;
