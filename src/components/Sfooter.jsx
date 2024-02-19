@@ -82,7 +82,7 @@ function Sign() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError(Validation(change));
-        const response = await fetch("/login",{
+        const response = await fetch("https://new-version-node.onrender.com/login",{
         method:"POST",
         body:JSON.stringify(change),
         headers:{
