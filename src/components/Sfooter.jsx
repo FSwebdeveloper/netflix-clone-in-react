@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Footer from "./Footer";
 import abouts from "./abouts";
@@ -8,11 +8,13 @@ import Validation from "./Validation";
 function Sign() {
 
      const [submit, setSubmit] = useState(true);
-     const [change, setChange] = useState("");
-     const [errors, setError] = useState("");
-     const [visible, setVisible ] = useState(false);
+     const [change, setChange] = useState({});
+     const [errors, setError] = useState({});
+     const [visible, setVisible ] = useState("");
+     const [successMessage, setSuccessMessage] = useState("");
 
 
+     
 
     function handleChange(event) {
      
@@ -39,6 +41,14 @@ function Sign() {
         console.log(data);
       };
 
+      useEffect(() => {
+        if (Object.keys(errors).length === 0 && submit) {
+          setSuccessMessage("");
+        } else {
+          setSuccessMessage("Form submitted successfully!"); // Clear the success message if there are errors or if the form hasn't been submitted
+        }
+      }, [errors, submit]);
+      
         
     return (
         <div>
@@ -52,7 +62,6 @@ function Sign() {
                     alt="netflix-webp"/>
 
             </div>
-
           <div className="bg">
             <div className="sign-bg-psudo">
              <h1 className="sign-heading">Sign In</h1>
@@ -88,6 +97,7 @@ function Sign() {
               onClick={()=> setSubmit(!submit)}
               ></input>
             </div>
+            {successMessage && <p style={{ color: 'white', marginLeft: "10px" }}>{successMessage}</p>}
             </form>
             </div>
 
