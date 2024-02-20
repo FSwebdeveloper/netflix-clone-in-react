@@ -24,61 +24,6 @@ function Sign() {
     //  console.log(change);
     }
 
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     setError(Validation(change));
-    //      fetch("/login",{
-    //        method:"POST",
-    //        headers: {
-    //         "Content-Type": "application/json; charset=UTF-8",
-    //        },
-    //        body:JSON.stringify(change)
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //         console.log(res)
-    //     });
-    // }
-
-  //  function handleSubmit(event) {
-  //       event.preventDefault();
-  //       setError(Validation(change));
-  //       fetch("/login", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json; charset=UTF-8",
-  //         },
-  //         body: JSON.stringify(change),
-  //       })
-  //         .then((res) => {
-  //           if (!res.ok) {
-  //             // If the response status is not okay, handle the error here
-  //             throw new Error(`HTTP error! Status: ${res.status}`);
-  //           }
-  //           return res.text(); // Get the raw response text
-  //         })
-  //         .then((text) => {
-  //           // Check if the response is not empty before parsing
-  //           if (text.trim() !== '') {
-  //             return JSON.parse(text);
-  //           } else {
-  //             // Handle empty response
-  //             console.warn('Received empty response');
-  //             return null;
-  //           }
-  //         })
-  //         .then((data) => {
-  //           console.log("Response data:", data);
-  //           // Process the response data as needed
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error during fetch or response processing:", error);
-  //           // Handle the error, show an error message, etc.
-  //         });
-  //     }
-      
-      
-
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError(Validation(change));
