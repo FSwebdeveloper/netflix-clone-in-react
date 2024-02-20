@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Footer from "./Footer";
 import abouts from "./abouts";
@@ -7,11 +7,11 @@ import Validation from "./Validation";
 
 function Sign() {
 
-     const [submit, setSubmit] = useState(true);
-     const [change, setChange] = useState({});
-     const [errors, setError] = useState({});
-     const [visible, setVisible ] = useState("");
-     
+     const [submit, setSubmit] = useState(false);
+     const [change, setChange] = useState("");
+     const [errors, setError] = useState("");
+     const [visible, setVisible ] = useState(false);
+     const [successMessage, setSuccessMessage] = useState(false);
 
 
      
@@ -26,6 +26,7 @@ function Sign() {
     //  console.log(change);
     }
 
+     
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError(Validation(change));
@@ -40,7 +41,16 @@ function Sign() {
         const data = await response.json();
         console.log(data);
       };
-  
+
+      useEffect(() => {
+        if (Object.keys(errors).length === 0 && submit) {
+          setSuccessMessage("Form submitted successfully!");
+        } else {
+          setSuccessMessage(""); // Clear the success message if there are errors or if the form hasn't been submitted
+        }
+      }, [errors, submit]);
+      
+        
     return (
         <div>
             <div className="first-section sign-first-psudo">
@@ -75,7 +85,7 @@ function Sign() {
 
               </div>
               <div className="visible-div">
-              <input className="sign-input-box" type={visible === true ? "text" : "password"} value={change.password} name="password" onChange={handleChange} placeholder=""></input>
+              <input className="sign-input-box" type={visible ? "text" : "password"} value={change.password} name="password" onChange={handleChange} placeholder=""></input>
               <label className="sign-form-label">Password</label>
               
                 {change.password && <div onClick={()=>setVisible(!visible)}>
@@ -88,7 +98,7 @@ function Sign() {
               onClick={()=> setSubmit(!submit)}
               ></input>
             </div>
-            
+            {successMessage && <p style={{ color: 'white', marginLeft: "10px" }}>{successMessage}</p>}
             </form>
             </div>
 
