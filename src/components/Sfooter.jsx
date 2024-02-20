@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState} from "react";
 import {Link} from "react-router-dom";
 import Footer from "./Footer";
 import abouts from "./abouts";
@@ -11,7 +11,7 @@ function Sign() {
      const [change, setChange] = useState({});
      const [errors, setError] = useState({});
      const [visible, setVisible ] = useState("");
-     const [successMessage, setSuccessMessage] = useState("");
+     
 
 
      
@@ -40,16 +40,7 @@ function Sign() {
         const data = await response.json();
         console.log(data);
       };
-
-      useEffect(() => {
-        if (Object.keys(errors).length === 0 && submit) {
-          setSuccessMessage("");
-        } else {
-          setSuccessMessage("Form submitted successfully!"); // Clear the success message if there are errors or if the form hasn't been submitted
-        }
-      }, [errors, submit]);
-      
-        
+  
     return (
         <div>
             <div className="first-section sign-first-psudo">
@@ -97,7 +88,7 @@ function Sign() {
               onClick={()=> setSubmit(!submit)}
               ></input>
             </div>
-            {successMessage && <p style={{ color: 'white', marginLeft: "10px" }}>{successMessage}</p>}
+            
             </form>
             </div>
 
