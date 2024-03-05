@@ -2,55 +2,70 @@ import React, { useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Footer from "./Footer";
 import abouts from "./abouts";
-import Validation from "./Validation";
 
 
 function Sign() {
 
-     const [submit, setSubmit] = useState(false);
-     const [change, setChange] = useState("");
-     const [errors, setError] = useState("");
-     const [visible, setVisible ] = useState(false);
-     const [successMessage, setSuccessMessage] = useState(false);
-
+  const intialValues = {email: "", password: ""};
+  const [formValues, setFormValues] = useState(intialValues);
+  const [formErrors, setFormErrors] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [visible, setVisible ] = useState(false);
+    
 
      
 
-    function handleChange(event) {
-     
-     setChange({
-        ...change,
-        [event.target.name] : event.target.value,
+  function handleChange(event){
+    
+    const {name, value} = event.target;
+    
+    setFormValues({...formValues, [name]: value});
 
-     })
-    //  console.log(change);
+  }
+
+  function handleSubmit(event){
+    event.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+    fetch("http://localhost:8080/login",{
+    method:"POST",
+    body:JSON.stringify(formValues),
+    headers:{
+        "Content-Type": "application/json"
     }
+    })
+    .then((result) => {
+      return result.json()
+    })
+    .then((data) => {
+    console.log(data)
+    });
+    
+  }
 
-     
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        setError(Validation(change));
-        const response = await fetch("https://new-version-node.onrender.com/login",{
-        method:"POST",
-        body:JSON.stringify(change),
-        headers:{
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-        });
-        const data = await response.json();
-        console.log(data);
-      };
+  useEffect(()=> {
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+      console.log(formValues);
+    }
+  },[formErrors, isSubmit, formValues]);
 
-      useEffect(() => {
-        if (Object.keys(errors).length === 0 && submit) {
-          setSuccessMessage("Form submitted successfully!");
-        } else {
-          setSuccessMessage(""); // Clear the success message if there are errors or if the form hasn't been submitted
-        }
-      }, [errors, submit]);
-      
-        
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if(!values.email){
+      errors.email = "Email is required";
+    } else if(!regex.test(values.email)){
+      errors.email = "This is not a valid eamil";
+    }
+    if(!values.password){
+      errors.password = "Password is required";
+    }
+   
+    return errors;
+
+  };
+
+
     return (
         <div>
             <div className="first-section sign-first-psudo">
@@ -72,11 +87,11 @@ function Sign() {
               <div className="form-top">
 
               </div>
-              <input className="sign-input-box" type="text" value={change.email} name="email" onChange={handleChange} placeholder=""></input>
+              <input className="sign-input-box" type="text" name="email" onChange={handleChange} placeholder="" value={formValues.email}></input>
 
               <label className="sign-form-label">Email or phone number</label>
               </div>
-              {errors.email && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.email}</p> }
+              {formErrors.email && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{formErrors.email}</p> }
             </div>
             
             <div className="form-section">
@@ -85,20 +100,19 @@ function Sign() {
 
               </div>
               <div className="visible-div">
-              <input className="sign-input-box" type={visible ? "text" : "password"} value={change.password} name="password" onChange={handleChange} placeholder=""></input>
+              <input className="sign-input-box" type={visible ? "text" : "password"} name="password" onChange={handleChange} placeholder="" value={formValues.password} ></input>
               <label className="sign-form-label">Password</label>
               
-                {change.password && <div onClick={()=>setVisible(!visible)}>
+                {formValues.password && <div onClick={()=>setVisible(!visible)}>
                 {visible ? <span class="material-symbols-outlined visible-toggle">visibility </span>: <span class="material-symbols-outlined visible-toggle"> visibility_off</span>} 
               </div>}
               </div>
               </div>
-              {errors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{errors.password}</p> }
+              {formErrors.password && <p style={{color: "red", fontSize: "14px", marginBottom: "-20px"}}>{formErrors.password}</p> }
               <input className="form-submit" type="submit" value="Sign In"
-              onClick={()=> setSubmit(!submit)}
               ></input>
             </div>
-            {successMessage && <p style={{ color: 'white', marginLeft: "10px" }}>{successMessage}</p>}
+            {Object.keys(formErrors).length === 0 && isSubmit ? (<div style={{marginLeft: "10px"}}>Signed in successfully</div>) : null}
             </form>
             </div>
 
