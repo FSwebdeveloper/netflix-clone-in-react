@@ -27,7 +27,7 @@ function Sign() {
     event.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    fetch("http://localhost:8080/login",{
+    fetch("https://new-version-node.onrender.com",{
     method:"POST",
     body:JSON.stringify(formValues),
     headers:{
